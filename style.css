@@ -1,0 +1,153 @@
+body{
+    background: rgb(129, 127, 127);
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header h1 {
+    font-size: 40px;
+    text-align: center;
+    border: 1px solid white;
+    text-align: center;
+    border-radius: 30px;
+}
+
+.formularioRecetas{
+    border: 1px solid white;
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 30px;
+
+    
+}
+.formRecetas{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+form input {
+    height: 30px;
+    width: 85%;
+    border-radius: 30px;
+    border: none;
+}
+form select{
+    height: 30px;
+    width: 85%;
+    border-radius: 30px;
+    border: none;
+
+}
+
+.botonEnviar{
+    height: 30px;
+    width: 200px;
+    border-radius: 50px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.botonEnviar::hoover{
+    background: yellow;
+
+}
+
+
+.modal{
+    display: none;
+    max-width: 500px;
+    width: 100%;
+    margin-top: 50px;
+}
+#userList{
+    max-width: 1440px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    justify-content: space-evenly;
+    flex-direction: row;
+    gap: 50px;
+
+}
+
+.receta-card{
+    padding: 50px;
+    background: rgb(233, 233, 233);
+    border-radius: 50px;
+    border: none;
+    max-width: 500px;
+    width: 100%;
+
+
+}
+.receta-card p{
+
+}
+.receta-card p strong{
+
+}
+
+
+.modal-content{
+    border: 1px solid white;
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 30px;
+
+}
+
+#editForm{
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 30px;
+
+}
+.botones{
+    height: 30px;
+    width: 200px;
+    border-radius: 50px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+}
+
+.clearAll{
+    height: 50px;
+    width: 200px;
+    border-radius: 50px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.container{
+    border: 1px solid white;
+    margin-top: 30px;
+    border-radius: 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

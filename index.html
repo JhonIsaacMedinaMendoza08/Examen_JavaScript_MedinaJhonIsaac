@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creador de Recetas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>
+                TuReceta.com
+            </h1>
+        </div>
+    </header>
+    <main>
+        <div class="formularioRecetas">
+            <h1>Crea tu receta personalizada</h1>
+            <form id="formRecetas" class="formRecetas"> 
+                <label for="nombre">Nombre: </label>
+                <input type="text" id="nombre" name="nombre" required placeholder="Ingresa el nombre de tu receta">
+
+                <label for="ingredientes">Ingredientes: </label>
+                <input type="text" id="ingredientes" name="ingredientes" required
+                    placeholder="Ingresa los ingredientes de tu receta">
+
+                <label for="intrucciones">Intrucciones de preparación.: </label>
+                <input type="text" id="intrucciones" name="intrucciones" required
+                    placeholder="Ingresa las instrucciones de preparacion">
+
+                <label for="tiempo">Tiempo de preparación.(min): </label>
+                <input type="number" id="tiempo" name="tiempo" required placeholder="Ingresa el tiempo en minutos">
+
+                <label for="porciones">Número de porciones</label>
+                <input type="number" min="1" id="porciones" name="porciones" required
+                    placeholder="Ingresa el numero de porciones">
+
+                <label for="categoria">Categorias:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="desayuno">Desayuno</option>
+                    <option value="almuerzo">Almuerzo</option>
+                    <option value="cena">Cena</option>
+                    <option value="postre">Postre</option>
+                    <option value="pasabocas">Pasabocas</option>
+                </select>
+                
+
+                <label for="dificultad">Dificultad:</label>
+                <select id="dificultad" name="dificultad" required>
+                    <option value="Fácil">Fácil</option>
+                    <option value="Medio">Medio</option>
+                    <option value="Difícil">Difícil</option>
+                </select>
+
+                <button type="submit" class="botonEnviar">Enviar</button>
+            </form>
+
+        </div>
+        <div class="container">
+            <h1>Recetas Registradas</h1>
+
+            <div id="userList"></div>
+    
+            <div class="buttons">
+                <button id="clearAll" class="clearAll">Eliminar Todos los Datos</button>
+            </div>
+    
+            <!-- Modal para editar -->
+            <div id="editModal" class="modal">
+                <div class="modal-content">
+                    <h2>Editar Recetas</h2>
+                    <form id="editForm">
+                        <label for="editnombre">editNombre: </label>
+                        <input type="text" id="editnombre">
+    
+                        <label for="editingredientes">Ingredientes: </label>
+                        <input type="text" id="editingredientes">
+    
+                        <label for="editintrucciones">Intrucciones de preparación.: </label>
+                        <input type="text" id="editintrucciones" >
+    
+                        <label for="edittiempo">Tiempo de preparación.(min): </label>
+                        <input type="number" id="edittiempo">
+    
+                        <label for="editporciones">Número de porciones</label>
+                        <input type="number" min="1" id="editporciones">
+    
+                        <label for="editcategoria">Ceditategorias:</label>
+                        <select id="editcategoria">
+                            <option value="desayuno">Desayuno</option>
+                            <option value="almuerzo">Almuerzo</option>
+                            <option value="cena">Cena</option>
+                            <option value="postre">Postre</option>
+                            <option value="pasabocas">Pasabocas</option>
+                        </select>
+    
+    
+                        <label for="editdificultad">editDificultad:</label>
+                        <select id="editdificultad">
+                            <option value="Fácil">Fácil</option>
+                            <option value="Medio">Medio</option>
+                            <option value="Difícil">Difícil</option>
+                        </select>
+    
+                        <button type="submit" class="botones">Guardar Cambios</button>
+                        <button type="button" id="cancelEdit" class="botones">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <h3>by. Jhon Isaac Medina Mendoza</h3>
+    </footer>
+</body>
+</html>
