@@ -1,3 +1,9 @@
+let recetas = JSON.parse(localStorage.getItem('userDataList')) || [];
+const recetasList = document.getElementById('userList'); 
+const buscarNombre = document.getElementById('buscarNombre');
+const buscarCategoria = document.getElementById('buscarCategoria');
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('formRecetas');
   
@@ -15,19 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
   
       };
   
-      let userDataList = JSON.parse(localStorage.getItem('userDataList')) || [];
-      userDataList.push(userData);
-      localStorage.setItem('userDataList', JSON.stringify(userDataList));
+      recetas.push(userData);
+      localStorage.setItem('userDataList', JSON.stringify(recetas));
   
       alert('Datos guardados exitosamente!');
       form.reset();
+      filtrarRecetas();
     });
   });
   
   /*AREA DEL LISTAR Y EDITAR RECETAS*/
   
   document.addEventListener('DOMContentLoaded', () => {
-    const recetasList = document.getElementById('userList'); 
     const clearAllBtn = document.getElementById('clearAll'); 
   
     const editModal = document.getElementById('editModal');
@@ -42,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
     const cancelEditBtn = document.getElementById('cancelEdit');
   
-    let recetas = JSON.parse(localStorage.getItem('userDataList')) || [];
     let currentEditIndex = null;
   
     recetasGuardadas();
@@ -106,16 +110,16 @@ document.addEventListener('DOMContentLoaded', () => {
     editForm.addEventListener('submit', (e) => {
       e.preventDefault(); 
       if (currentEditIndex !== null) {
-  
-        recetas[currentEditIndex].nombre = editnombre.value;
-        recetas[currentEditIndex].ingredientes = editingredientes.value;
-        recetas[currentEditIndex].intrucciones = editintrucciones.value;
-        recetas[currentEditIndex].tiempo = edittiempo.value;
-        recetas[currentEditIndex].porciones = editporciones.value;
-        recetas[currentEditIndex].categoria = editcategoria.value;
-        recetas[currentEditIndex].dificultad = editdificultad.value;
-  
-  
+        recetas[currentEditIndex] = {
+            nombre: editnombre.value,
+            ingredientes: editingredientes.value,
+            intrucciones: editintrucciones.value,
+            tiempo: edittiempo.value,
+            porciones: editporciones.value,
+            categoria: editcategoria.value,
+            dificultad: editdificultad.value
+        };
+
         localStorage.setItem('userDataList', JSON.stringify(recetas));
         alert('Datos guardados exitosamente!');
         recetasGuardadas(); 
@@ -123,12 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   
-    cancelEditBtn.addEventListener('click', closeModal);
+    cancelEditBtn.addEventListener('click' , () => {closeModal()});
   
     clearAllBtn.addEventListener('click', () => {
       if (confirm('¿Seguro que deseas eliminar todas las recetas?')) {
         localStorage.removeItem('userDataList'); 
-        users = []; 
+        recetas = []; 
         recetasGuardadas(); 
       }
     });
@@ -137,14 +141,50 @@ document.addEventListener('DOMContentLoaded', () => {
   
   
   /*AREA DE FILTRADO*/
-  const searchInput = document.getElementById("searchInput");
-  
-  searchInput.addEventListener("input", () => {
-    const term = searchInput.value.toLowerCase(); 
-  
-    const filtered = allMotorcycles.filter(moto =>
-        `${moto.make} ${moto.model}`.toLowerCase().includes(term)
-    );
-  
-    showMotorcycles(filtered);
+  // Referencias
+
+
+// Eventos de búsqueda automática
+buscarNombre.addEventListener('input', filtrarRecetas);
+buscarCategoria.addEventListener('change', filtrarRecetas);
+
+function filtrarRecetas() {
+  const nombreInput = buscarNombre.value.toLowerCase().trim();
+  const categoriaInput = buscarCategoria.value;
+
+  const recetasFiltradas = recetas.filter(recetaIngresada => {
+    const coincideNombre = recetaIngresada.nombre.includes(nombreInput);
+    const coincideCategoria = categoriaInput === '' || recetaIngresada.categoria === categoriaInput;
+    return coincideNombre && coincideCategoria;
   });
+
+  mostrarRecetasFiltradas(recetasFiltradas);
+}
+
+function mostrarRecetasFiltradas(lista) {
+  recetasList.innerHTML = '';
+
+  if (lista.length === 0) {
+    recetasList.innerHTML = '<p>No se encontraron recetas.</p>';
+    return;
+  }
+
+  lista.forEach((recetaIngresada, index) => {
+    const userDiv = document.createElement('div');
+    userDiv.classList.add('receta-card');
+    userDiv.innerHTML = `
+      <p><strong>Nombre:</strong> ${recetaIngresada.nombre}</p>
+      <p><strong>Ingredientes:</strong> ${recetaIngresada.ingredientes}</p>
+      <p><strong>Intrucciones de preparación:</strong> ${recetaIngresada.intrucciones}</p>
+      <p><strong>Tiempo de preparación.(min):</strong> ${recetaIngresada.tiempo}</p>
+      <p><strong>Número de porciones:</strong> ${recetaIngresada.porciones}</p>
+      <p><strong>Categorias:</strong> ${recetaIngresada.categoria}</p>
+      <p><strong>Dificultad</strong> ${recetaIngresada.dificultad}</p>
+
+      <button onclick="editUser(${index})" class="botones">Editar</button>
+      <button onclick="deleteUser(${index})" class="botones">Eliminar</button>
+      <hr>
+    `;
+    recetasList.appendChild(userDiv);
+  });
+}
